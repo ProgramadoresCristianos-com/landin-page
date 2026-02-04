@@ -3,19 +3,759 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mi Landing</title>
+  <meta name="description" content="Comunidad de Programadores Cristianos Evangélicos. Programamos con excelencia, como para el Señor (Colosenses 3:23). Únete y crezcamos juntos." />
+  <meta name="theme-color" content="#0b1220" />
+  <title>Programadores Cristianos | Comunidad</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Programadores Cristianos | Comunidad" />
+  <meta property="og:description" content="Programamos con excelencia, como para el Señor. Únete a la comunidad." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; }
-    .box { max-width: 720px; }
-    button { padding: 12px 16px; cursor: pointer; }
+    :root{
+      --bg:#070b14;
+      --card:#0b1220;
+      --card2:#0e1930;
+      --text:#eaf0ff;
+      --muted:#a9b6d3;
+      --line:rgba(255,255,255,.10);
+      --primary:#7c5cff;
+      --primary2:#22c55e;
+      --warn:#f59e0b;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 28px;
+      --max: 1120px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 500px at 20% -10%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(800px 400px at 90% 10%, rgba(34,197,94,.20), transparent 55%),
+        radial-gradient(900px 450px at 50% 100%, rgba(245,158,11,.12), transparent 60%),
+        var(--bg);
+      line-height:1.5;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding: 0 18px;}
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(14px);
+      background: rgba(7,11,20,.55);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(124,92,255,1), rgba(34,197,94,1));
+      display:grid; place-items:center;
+      box-shadow: 0 10px 30px rgba(124,92,255,.25);
+      flex:0 0 auto;
+    }
+    .logo svg{width:20px; height:20px}
+    .nav-links{
+      display:flex; gap:14px; align-items:center;
+      color: var(--muted);
+      font-weight:600;
+      font-size: 14px;
+    }
+    .nav-links a{
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+    }
+    .nav-links a:hover{border-color: var(--line); color: var(--text);}
+    .nav-cta{
+      display:flex; gap:10px; align-items:center;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.16);}
+    .btn.primary{
+      border: 0;
+      background: linear-gradient(135deg, rgba(124,92,255,1), rgba(34,197,94,1));
+      box-shadow: 0 16px 40px rgba(124,92,255,.22);
+    }
+    .btn.primary:hover{transform: translateY(-2px);}
+    .btn.ghost{
+      background: transparent;
+    }
+
+    /* Hero */
+    .hero{padding: 58px 0 24px;}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 24px;
+      align-items:stretch;
+    }
+    .hero-card{
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      padding: 26px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 260px at 0% 0%, rgba(124,92,255,.25), transparent 60%),
+        radial-gradient(500px 220px at 100% 30%, rgba(34,197,94,.18), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .hero-card > *{position:relative}
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px;
+      width: fit-content;
+    }
+    .dot{
+      width:9px; height:9px; border-radius:99px;
+      background: var(--primary2);
+      box-shadow: 0 0 0 4px rgba(34,197,94,.15);
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height:1.05;
+      letter-spacing: -0.8px;
+    }
+    .lead{
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 62ch;
+      margin: 0 0 18px;
+    }
+    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top: 10px;}
+    .hero-meta{
+      display:flex; gap:14px; flex-wrap:wrap;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-weight:600;
+      font-size: 13px;
+    }
+    .meta-item{display:flex; gap:10px; align-items:center;}
+    .icon{
+      width:34px; height:34px; border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      display:grid; place-items:center;
+    }
+    .icon svg{width:18px; height:18px; opacity:.95}
+
+    /* Quote card */
+    .quote-card{
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:relative;
+      overflow:hidden;
+    }
+    .quote-card:after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 280px at 40% 120%, rgba(124,92,255,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .quote-card > *{position:relative}
+    .quote{
+      font-size: 15px;
+      color: var(--text);
+      margin: 0;
+    }
+    .quote strong{color: #ffffff;}
+    .quote-ref{
+      margin-top: 12px;
+      color: var(--muted);
+      font-weight:700;
+      font-size: 13px;
+    }
+    .mini-list{
+      display:grid; gap:10px;
+      margin-top: 16px;
+    }
+    .mini{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .mini b{display:block; font-size: 13px;}
+    .mini span{display:block; font-size: 12px; color: var(--muted); margin-top: 2px;}
+    .check{
+      width:22px; height:22px; border-radius: 8px;
+      background: rgba(34,197,94,.15);
+      border:1px solid rgba(34,197,94,.35);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+      margin-top: 2px;
+    }
+    .check svg{width:14px; height:14px;}
+
+    /* Sections */
+    section{padding: 34px 0;}
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
+      margin-bottom: 16px;
+    }
+    h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing:-0.4px;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 70ch;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .card{
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      padding: 16px;
+    }
+    .card h3{margin: 10px 0 6px; font-size: 15px;}
+    .card p{margin:0; color: var(--muted); font-size: 13px;}
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size: 12px; font-weight: 800;
+      color: rgba(255,255,255,.92);
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      width: fit-content;
+    }
+    .tag .pulse{
+      width:8px; height:8px; border-radius: 99px;
+      background: var(--primary);
+      box-shadow: 0 0 0 4px rgba(124,92,255,.18);
+    }
+
+    /* Join */
+    .join{
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(255,255,255,.03));
+      padding: 22px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 16px;
+      align-items:stretch;
+      box-shadow: var(--shadow);
+    }
+    .join h2{margin-bottom: 8px;}
+    .join p{margin:0; color: var(--muted); font-size: 14px;}
+    .form{
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(7,11,20,.35);
+      padding: 14px;
+      display:grid; gap: 10px;
+    }
+    .row{display:grid; grid-template-columns: 1fr 1fr; gap:10px;}
+    label{font-size: 12px; color: var(--muted); font-weight:700;}
+    input, textarea{
+      width:100%;
+      margin-top:6px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      outline:none;
+    }
+    input:focus, textarea:focus{border-color: rgba(124,92,255,.55); box-shadow: 0 0 0 4px rgba(124,92,255,.12);}
+    textarea{min-height: 92px; resize: vertical;}
+    .form-actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;}
+    .hint{color: var(--muted); font-size: 12px; margin:0;}
+    .tiny{
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* FAQ */
+    .faq{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    details{
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      padding: 14px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      font-size: 14px;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Footer */
+    footer{
+      padding: 24px 0 44px;
+      border-top: 1px solid var(--line);
+      margin-top: 22px;
+    }
+    .foot{
+      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      color: var(--muted);
+      font-size: 13px;
+      align-items:center;
+    }
+    .foot a{color: var(--text); font-weight:800;}
+    .kbd{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      font-weight:800;
+      color: var(--text);
+      margin-left: 8px;
+      font-size: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px){
+      .hero-grid{grid-template-columns: 1fr;}
+      .join{grid-template-columns: 1fr;}
+      .grid{grid-template-columns: 1fr;}
+      .faq{grid-template-columns: 1fr;}
+      .nav-links{display:none;}
+      .row{grid-template-columns: 1fr;}
+    }
   </style>
 </head>
+
 <body>
-  <div class="box">
-    <h1>Landing activa ✅</h1>
-    <p>Si estás viendo esto, GitHub Pages ya está publicado correctamente.</p>
-    <button onclick="alert('OK')">Probar</button>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <!-- simple cross icon -->
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 3v18M6.5 9.5h11" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            Programadores Cristianos
+            <div style="font-size:12px; color:var(--muted); font-weight:700; margin-top:2px;">Comunidad evangélica • excelencia • servicio</div>
+          </div>
+        </div>
+
+        <div class="nav-links" role="navigation" aria-label="Secciones">
+          <a href="#mision">Misión</a>
+          <a href="#valores">Valores</a>
+          <a href="#como">Cómo funciona</a>
+          <a href="#unete">Únete</a>
+          <a href="#faq">FAQ</a>
+        </div>
+
+        <div class="nav-cta">
+          <a class="btn ghost" href="#unete">Unirme</a>
+          <a class="btn primary" href="mailto:programadorescristianos@gmail.com?subject=Quiero%20unirme%20a%20Programadores%20Cristianos&body=Hola%2C%20quiero%20unirme%20a%20la%20comunidad.%0A%0ANombre%3A%0A%C2%BFEn%20qu%C3%A9%20programas%3F%20(front%2Fback%2Fmobile%2Fdata%2Fdevops)%0APa%C3%ADs%3A%0A%0ABendiciones%2C">
+            Unirme por correo
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-card">
+          <div class="pill"><span class="dot"></span> Comunidad cristiana para programar con excelencia</div>
+          <h1>Programamos con excelencia, <span style="color:rgba(255,255,255,.92);">como para el Señor</span>.</h1>
+          <p class="lead">
+            Somos una comunidad de <b>programadores cristianos evangélicos</b> que busca crecer, apoyarse y desarrollar habilidades técnicas con
+            un fundamento bíblico y una cultura de excelencia.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#unete">
+              <!-- icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+              Únete hoy
+            </a>
+            <a class="btn" href="#como">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 8v8m0 0l-3-3m3 3l3-3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Cómo funciona
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <div class="meta-item">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 8h10M7 12h7M7 16h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div><b>Mentoría & aprendizaje</b><div style="color:var(--muted); font-weight:600;">Buenas prácticas reales</div></div>
+            </div>
+
+            <div class="meta-item">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 21s7-4.35 7-10a7 7 0 10-14 0c0 5.65 7 10 7 10z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 11.2a1.6 1.6 0 100-3.2 1.6 1.6 0 000 3.2z" fill="white" opacity=".9"/>
+                </svg>
+              </div>
+              <div><b>Comunidad global</b><div style="color:var(--muted); font-weight:600;">LatAm y el mundo</div></div>
+            </div>
+
+            <div class="meta-item">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3l2.2 6.1L21 9.3l-5 3.7L17.8 20 12 16.6 6.2 20 8 13 3 9.3l6.8-.2L12 3z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div><b>Excelencia</b><div style="color:var(--muted); font-weight:600;">Calidad y servicio</div></div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="quote-card" id="mision">
+          <div>
+            <div class="tag"><span class="pulse"></span> Fundamento bíblico</div>
+            <p class="quote" style="margin-top:12px;">
+              <strong>Colosenses 3:23</strong> — “Y todo lo que hagáis, hacedlo de corazón, como para el Señor y no para los hombres”.
+            </p>
+            <div class="quote-ref">Nuestra misión</div>
+            <p class="sub" style="margin-top:8px;">
+              Crear un espacio donde la fe y la excelencia profesional se encuentren:
+              aprender, servir, compartir oportunidades y desarrollar proyectos con integridad.
+            </p>
+
+            <div class="mini-list">
+              <div class="mini">
+                <div class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M6 12.5l3.2 3.2L18 7.9" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div><b>Excelencia técnica</b><span>Buenas prácticas, estándares, calidad.</span></div>
+              </div>
+              <div class="mini">
+                <div class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M6 12.5l3.2 3.2L18 7.9" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div><b>Integridad</b><span>Ética, honestidad y responsabilidad.</span></div>
+              </div>
+              <div class="mini">
+                <div class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M6 12.5l3.2 3.2L18 7.9" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div><b>Comunidad</b><span>Apoyo, amistad y crecimiento.</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--line);">
+            <p class="tiny">¿Quieres colaborar u organizar encuentros? Escríbenos:</p>
+            <a class="btn" style="margin-top:10px;" href="mailto:programadorescristianos@gmail.com?subject=Colaborar%20con%20Programadores%20Cristianos">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6h16v12H4V6z" stroke="white" stroke-width="2" />
+                <path d="M4 7l8 6 8-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              programadorescristianos@gmail.com
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <!-- VALUES -->
+  <section id="valores">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Valores que nos definen</h2>
+          <p class="sub">Principios prácticos para construir una comunidad sana y crecer en habilidades reales.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="tag"><span class="pulse"></span> Excelencia</div>
+          <h3>Calidad por convicción</h3>
+          <p>Aprendemos estándares, buenas prácticas, pruebas, documentación y responsabilidad en cada entrega.</p>
+        </div>
+        <div class="card">
+          <div class="tag"><span class="pulse" style="background:var(--primary2); box-shadow:0 0 0 4px rgba(34,197,94,.18)"></span> Servicio</div>
+          <h3>Servir con tecnología</h3>
+          <p>Usamos el conocimiento para bendecir, ayudar, educar y aportar valor real a otras personas.</p>
+        </div>
+        <div class="card">
+          <div class="tag"><span class="pulse" style="background:var(--warn); box-shadow:0 0 0 4px rgba(245,158,11,.18)"></span> Integridad</div>
+          <h3>Ética y confianza</h3>
+          <p>Construimos reputación con acciones: transparencia, respeto, disciplina y coherencia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="como">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Cómo funciona</h2>
+          <p class="sub">Simple, práctico y enfocado en crecimiento real: aprendizaje, comunidad y oportunidades.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 7h16M7 4v6M17 4v6M6 20h12a2 2 0 002-2V9a2 2 0 00-2-2H6a2 2 0 00-2 2v9a2 2 0 002 2z" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Encuentros y temas</h3>
+          <p>Charlas cortas, preguntas, testimonios y temas técnicos: frontend, backend, mobile, data, devops.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 17l10-10M7 7h.01M17 17h.01" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Mentoría y revisión</h3>
+          <p>Aprende con feedback: estructura, tests, clean code, arquitectura, buenas prácticas y soft skills.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 21s7-4.35 7-10a7 7 0 10-14 0c0 5.65 7 10 7 10z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Conexión y oportunidades</h3>
+          <p>Networking sano: proyectos, colaboración, vacantes, partners, equipos y crecimiento profesional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section id="unete">
+    <div class="container">
+      <div class="join">
+        <div>
+          <h2>Únete a la comunidad</h2>
+          <p>
+            Déjanos tus datos y te contactamos. Si prefieres, también puedes escribir directo al correo.
+          </p>
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="mailto:programadorescristianos@gmail.com?subject=Quiero%20unirme%20a%20Programadores%20Cristianos&body=Hola%2C%20quiero%20unirme%20a%20la%20comunidad.%0A%0ANombre%3A%0A%C2%BFEn%20qu%C3%A9%20programas%3F%20(front%2Fback%2Fmobile%2Fdata%2Fdevops)%0APa%C3%ADs%3A%0A%0ABendiciones%2C">
+              Enviar correo ahora
+            </a>
+            <a class="btn" href="#faq">Ver preguntas frecuentes</a>
+          </div>
+
+          <p class="tiny" style="margin-top:14px;">
+            Consejo: agrega este correo a contactos para no perder el mensaje: <b>programadorescristianos@gmail.com</b>
+          </p>
+        </div>
+
+        <form class="form" id="joinForm">
+          <div class="row">
+            <div>
+              <label for="name">Nombre</label>
+              <input id="name" name="name" placeholder="Tu nombre" required />
+            </div>
+            <div>
+              <label for="country">País</label>
+              <input id="country" name="country" placeholder="Ej: Chile, México, Colombia" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="area">Área (ej: Frontend / Backend / Mobile)</label>
+              <input id="area" name="area" placeholder="Ej: Backend (Java/Spring), Frontend (React)" required />
+            </div>
+            <div>
+              <label for="level">Nivel</label>
+              <input id="level" name="level" placeholder="Ej: Junior / Semi / Senior" />
+            </div>
+          </div>
+
+          <div>
+            <label for="msg">Mensaje</label>
+            <textarea id="msg" name="msg" placeholder="Cuéntanos qué estás construyendo y cómo te gustaría participar."></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12l16-8-6 16-2.8-6.2L4 12z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Enviar
+            </button>
+            <p class="hint">Esto abre tu correo (Gmail/Outlook). No guarda datos en servidor.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Preguntas frecuentes</h2>
+          <p class="sub">Respuestas rápidas para que tengas claridad desde el inicio.</p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>¿Es solo para evangélicos?</summary>
+          <p>Somos una comunidad cristiana evangélica. Si compartes la fe y el respeto por la base bíblica, eres bienvenido.</p>
+        </details>
+        <details>
+          <summary>¿Cuesta dinero?</summary>
+          <p>No. Es una comunidad para crecer, aprender y servir. Si más adelante se hacen eventos especiales, se anunciará con claridad.</p>
+        </details>
+        <details>
+          <summary>¿Qué tipo de programadores pueden unirse?</summary>
+          <p>Frontend, backend, mobile, data, QA, devops, diseño, product. Si trabajas con tecnología y quieres crecer con excelencia, encajas.</p>
+        </details>
+        <details>
+          <summary>¿Cómo me contacto o propongo ideas?</summary>
+          <p>Escríbenos a <b>programadorescristianos@gmail.com</b> o completa el formulario. Respondemos en cuanto podamos.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>
+          <b>Programadores Cristianos</b> · Comunidad cristiana para programar con excelencia.
+          <span class="kbd">Col 3:23</span>
+        </div>
+        <div>
+          Contacto: <a href="mailto:programadorescristianos@gmail.com">programadorescristianos@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Form -> mailto (sin backend)
+    (function () {
+      const form = document.getElementById('joinForm');
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value.trim();
+        const country = document.getElementById('country').value.trim();
+        const area = document.getElementById('area').value.trim();
+        const level = document.getElementById('level').value.trim();
+        const msg = document.getElementById('msg').value.trim();
+
+        const subject = encodeURIComponent('Quiero unirme a Programadores Cristianos');
+        const body = encodeURIComponent(
+          `Hola, quiero unirme a la comunidad.\n\n` +
+          `Nombre: ${name}\n` +
+          `País: ${country}\n` +
+          `Área: ${area}\n` +
+          (level ? `Nivel: ${level}\n` : '') +
+          `\nMensaje:\n${msg}\n\n` +
+          `Bendiciones,`
+        );
+
+        const mailto = `mailto:programadorescristianos@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = mailto;
+      });
+    })();
+  </script>
 </body>
 </html>
+
 
